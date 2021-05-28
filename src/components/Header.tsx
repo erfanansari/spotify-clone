@@ -2,18 +2,35 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import AppBar from "@material-ui/core/AppBar";
-import {Grid, InputBase} from "@material-ui/core";
+import HomeRounded from "@material-ui/icons/HomeRounded";
+import ExploreRounded from "@material-ui/icons/ExploreRounded";
+import LibraryMusicRounded from "@material-ui/icons/LibraryMusicRounded";
 import SearchIcon from "@material-ui/icons/Search";
+import PersonRounded from "@material-ui/icons/PersonRounded";
+import AlbumRounded from "@material-ui/icons/AlbumRounded";
+import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
+import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
+import AppBar from "@material-ui/core/AppBar";
+import {Grid, Hidden, InputBase} from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import {fade, createStyles, Theme, makeStyles} from '@material-ui/core/styles';
+import {Link} from 'react-router-dom'
 
 const drawerWidth = 220;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         appBar: {
-            width: `calc(100% - ${drawerWidth}px)`,
+            [theme.breakpoints.up('sm')]: {
+                width: `calc(100% - ${drawerWidth}px)`,
+                top: 0,
+                bottom: 'unset'
+            },
+            bottom: 0,
+            top: 'unset',
+            left: 'auto',
+            right: 0,
+            position: 'fixed',
             marginLeft: drawerWidth,
         },
         search: {
@@ -70,41 +87,58 @@ const Header = () => {
     // };
 
     return (
-        <AppBar position="fixed" className={classes.appBar}>
+        <AppBar className={classes.appBar}>
             <Toolbar>
                 {/*<Typography variant="h6" noWrap>*/}
                 {/*    Permanent drawer*/}
                 {/*</Typography>*/}
-                <Grid container justify="space-between" alignItems="center">
-                    <Grid item>
-
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon/>
+                <Hidden xsDown>
+                    <Grid container justify="space-between" alignItems="center">
+                        <Grid item>
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <SearchIcon/>
+                                </div>
+                                <InputBase
+                                    placeholder="Search…"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    inputProps={{'aria-label': 'search'}}
+                                />
                             </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{'aria-label': 'search'}}
-                            />
-                        </div>
+                        </Grid>
+                        <Grid item>
+                            <IconButton className={classes.userIcon}
+                                        edge="end"
+                                        aria-label="account of current user"
+                                        aria-controls={menuId}
+                                        aria-haspopup="true"
+                                // onClick={handleProfileMenuOpen}
+                                        color="inherit"
+                            >
+                                <AccountCircle/>
+                            </IconButton>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <IconButton className={classes.userIcon}
-                                    edge="end"
-                                    aria-label="account of current user"
-                                    aria-controls={menuId}
-                                    aria-haspopup="true"
-                            // onClick={handleProfileMenuOpen}
-                                    color="inherit"
-                        >
-                            <AccountCircle/>
+                </Hidden>
+                <Hidden smUp>
+                    <Grid container justify="space-around">
+                        <IconButton color="inherit" component={Link} to="/home">
+                            <HomeRounded/>
+                        </IconButton>
+                        <IconButton color="inherit" component={Link} to="/explore">
+                            <SearchIcon/>
+                        </IconButton>
+                        <IconButton color="inherit" component={Link} to="/playlists">
+                            <AlbumRounded/>
+                        </IconButton>
+                        <IconButton color="inherit" component={Link} to="/favourites">
+                            <FavoriteRounded/>
                         </IconButton>
                     </Grid>
-                </Grid>
+                </Hidden>
             </Toolbar>
         </AppBar>
     )

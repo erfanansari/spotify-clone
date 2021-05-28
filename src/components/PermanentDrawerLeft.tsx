@@ -1,4 +1,5 @@
-import Divider from "@material-ui/core/Divider";
+import React from "react";
+import {Link} from 'react-router-dom'
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import HomeRounded from "@material-ui/icons/HomeRounded";
@@ -11,7 +12,6 @@ import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
-import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 
@@ -72,7 +72,7 @@ const PermanentDrawerLeft = () => {
             </Typography>
             <List>
                 {['Home', 'Explore', 'Songs', 'Artists', 'Albums'].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text} component={Link} to={text.toLowerCase()}>
                         <ListItemIcon>
                             {chooseIcon(index)}
                         </ListItemIcon>
@@ -86,7 +86,7 @@ const PermanentDrawerLeft = () => {
             </Typography>
             <List>
                 {['Recently Played', 'Favourites', 'Playlists'].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text} component={Link} to={text.toLowerCase()}>
                         <ListItemIcon>
                             {index === 0 ? <QueryBuilderRounded/> : index === 1 ?
                                 <FavoriteRounded/> : <LibraryMusicRounded/>}
