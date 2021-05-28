@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import PermanentDrawerLeft from "./PermanentDrawerLeft";
 import {Hidden} from "@material-ui/core";
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(3),
         },
+
     }),
 );
 
@@ -45,7 +46,9 @@ const Menu = () => {
                 <PermanentDrawerLeft/>
             </Hidden>
             <main className={classes.content}>
-                <div className={classes.toolbar}/>
+                <Hidden xsDown>
+                    <div className={classes.toolbar}/>
+                </Hidden>
                 <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt

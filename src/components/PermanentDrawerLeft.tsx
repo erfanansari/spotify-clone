@@ -13,8 +13,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import {Typography} from "@material-ui/core";
 
-const drawerWidth = 240
+const drawerWidth = 220
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawer: {
@@ -26,6 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         // necessary for content to be below app bar
         toolbar: theme.mixins.toolbar,
+        brandHeader: {
+            margin: '.5rem 0 1rem 1rem'
+
+        },
+        subMenu: {
+            color: "#666",
+            marginLeft: '1.5rem'
+        }
     }),
 );
 
@@ -53,8 +62,14 @@ const PermanentDrawerLeft = () => {
             }}
             anchor="left"
         >
-            <div className={classes.toolbar}/>
-            <Divider/>
+            <div className={classes.toolbar}>
+                <Typography variant="h2" className={classes.brandHeader}>
+                    Tunify
+                </Typography>
+            </div>
+            <Typography variant="h6" className={classes.subMenu}>
+                BROWSE
+            </Typography>
             <List>
                 {['Home', 'Explore', 'Songs', 'Artists', 'Albums'].map((text, index) => (
                     <ListItem button key={text}>
@@ -65,7 +80,10 @@ const PermanentDrawerLeft = () => {
                     </ListItem>
                 ))}
             </List>
-            <Divider/>
+
+            <Typography variant="h6" className={classes.subMenu}>
+                YOUR LIBRARY
+            </Typography>
             <List>
                 {['Recently Played', 'Favourites', 'Playlists'].map((text, index) => (
                     <ListItem button key={text}>
