@@ -89,5 +89,10 @@ export default createMuiTheme({
                 minWidth: '40px'
             }
         }
+    },
+    props: {
+        // MuiButton: {
+        // disableRipple: true
+        // }
     }
 });

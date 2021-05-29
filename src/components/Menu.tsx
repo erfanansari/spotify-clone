@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from "./Header";
-import Typography from '@material-ui/core/Typography';
 import PermanentDrawerLeft from "./PermanentDrawerLeft";
 import {Hidden} from "@material-ui/core";
 
@@ -34,7 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
     }),
 );
-const Menu = (props: any) => {
+
+interface Props {
+    children: ReactNode;
+}
+
+const Menu = (props: Props) => {
     const classes = useStyles();
 
     return (
@@ -48,7 +52,6 @@ const Menu = (props: any) => {
                 <Hidden xsDown>
                     <div className={classes.toolbar}/>
                 </Hidden>
-                {/*Component here*/}
                 {props.children}
             </main>
 

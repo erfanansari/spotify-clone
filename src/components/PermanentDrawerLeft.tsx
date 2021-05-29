@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import HomeRounded from "@material-ui/icons/HomeRounded";
 import ExploreRounded from "@material-ui/icons/ExploreRounded";
 import LibraryMusicRounded from "@material-ui/icons/LibraryMusicRounded";
-import PersonRounded from "@material-ui/icons/PersonRounded";
+import PeopleIcon from '@material-ui/icons/People';
 import AlbumRounded from "@material-ui/icons/AlbumRounded";
 import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
 import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: drawerWidth,
         },
         // necessary for content to be below app bar
-        toolbar: theme.mixins.toolbar,
+        toolbar: {...theme.mixins.toolbar, padding: '.4rem 0 1.1rem 0'},
         brandHeader: {
-            margin: '.5rem 0 1rem 1rem'
-
+            margin: '.5rem 0 1rem 1rem',
+            textDecoration: 'none'
         },
         subMenu: {
             color: "#666",
@@ -49,7 +49,7 @@ const PermanentDrawerLeft = () => {
         if (i === 2)
             return <LibraryMusicRounded/>
         if (i === 3)
-            return <PersonRounded/>
+            return <PeopleIcon/>
         if (i === 4)
             return <AlbumRounded/>
     }
@@ -63,7 +63,7 @@ const PermanentDrawerLeft = () => {
             anchor="left"
         >
             <div className={classes.toolbar}>
-                <Typography variant="h2" className={classes.brandHeader}>
+                <Typography variant="h2" component={Link} to="/" className={classes.brandHeader}>
                     Tunify
                 </Typography>
             </div>

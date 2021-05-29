@@ -1,20 +1,23 @@
 import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeRounded from "@material-ui/icons/HomeRounded";
-import ExploreRounded from "@material-ui/icons/ExploreRounded";
+// import ExploreRounded from "@material-ui/icons/ExploreRounded";
 import LibraryMusicRounded from "@material-ui/icons/LibraryMusicRounded";
 import SearchIcon from "@material-ui/icons/Search";
-import PersonRounded from "@material-ui/icons/PersonRounded";
+import PeopleIcon from '@material-ui/icons/People';
 import AlbumRounded from "@material-ui/icons/AlbumRounded";
-import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
-import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
+// import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
+// import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
 import AppBar from "@material-ui/core/AppBar";
 import {Grid, Hidden, InputBase} from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import {fade, createStyles, Theme, makeStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom'
+// import ListItem from "@material-ui/core/ListItem";
+// import ListItemIcon from "@material-ui/core/ListItemIcon";
+// import ListItemText from "@material-ui/core/ListItemText";
 
 const drawerWidth = 220;
 
@@ -77,6 +80,18 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }))
 
+const chooseIcon = (i: number) => {
+    if (i === 0)
+        return <HomeRounded/>;
+    if (i === 1)
+        return <SearchIcon/>
+    if (i === 2)
+        return <LibraryMusicRounded/>
+    if (i === 3)
+        return <PeopleIcon/>
+    if (i === 4)
+        return <AlbumRounded/>
+}
 const Header = () => {
     const classes = useStyles()
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -125,18 +140,24 @@ const Header = () => {
                 </Hidden>
                 <Hidden smUp>
                     <Grid container justify="space-around">
-                        <IconButton color="inherit" component={Link} to="/home">
-                            <HomeRounded/>
-                        </IconButton>
-                        <IconButton color="inherit" component={Link} to="/explore">
-                            <SearchIcon/>
-                        </IconButton>
-                        <IconButton color="inherit" component={Link} to="/playlists">
-                            <AlbumRounded/>
-                        </IconButton>
-                        <IconButton color="inherit" component={Link} to="/favourites">
-                            <FavoriteRounded/>
-                        </IconButton>
+                        {['Home', 'Explore', 'Songs', 'Artists', 'Albums'].map((text, index) => (
+                            <IconButton color="inherit" key={text} component={Link}
+                                        to={text.toLowerCase()}>
+                                {chooseIcon(index)}
+                            </IconButton>
+                        ))}
+                        {/*<IconButton color="inherit" component={Link} to="/home">*/}
+                        {/*    <HomeRounded/>*/}
+                        {/*</IconButton>*/}
+                        {/*<IconButton color="inherit" component={Link} to="/explore">*/}
+                        {/*    <SearchIcon/>*/}
+                        {/*</IconButton>*/}
+                        {/*<IconButton color="inherit" component={Link} to="/playlists">*/}
+                        {/*    <AlbumRounded/>*/}
+                        {/*</IconButton>*/}
+                        {/*<IconButton color="inherit" component={Link} to="/favourites">*/}
+                        {/*    <FavoriteRounded/>*/}
+                        {/*</IconButton>*/}
                     </Grid>
                 </Hidden>
             </Toolbar>
