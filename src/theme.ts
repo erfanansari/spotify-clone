@@ -3,6 +3,8 @@ import {createMuiTheme} from "@material-ui/core/styles";
 const Blue = "#0B72B9";
 const Orange = "#FFBA60";
 const Gray = "#868686";
+const Black= "#000";
+// const White= "#fff";
 // const darkGray = "#555";
 const fontFamily = 'Apercu'
 export default createMuiTheme({
