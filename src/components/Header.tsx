@@ -1,23 +1,19 @@
 import React from "react";
+import {useAppSelector, useAppDispatch} from "../redux/hooks";
+import {setSearchTerm} from "../redux/counterSlice";
+import {Grid, Hidden, InputBase, AppBar} from "@material-ui/core";
+import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
+import {Link} from 'react-router-dom'
+
 import Toolbar from "@material-ui/core/Toolbar";
-// import Typography from "@material-ui/core/Typography";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeRounded from "@material-ui/icons/HomeRounded";
-// import ExploreRounded from "@material-ui/icons/ExploreRounded";
 import LibraryMusicRounded from "@material-ui/icons/LibraryMusicRounded";
 import SearchIcon from "@material-ui/icons/Search";
 import PeopleIcon from '@material-ui/icons/People';
 import AlbumRounded from "@material-ui/icons/AlbumRounded";
-// import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
-// import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
-import AppBar from "@material-ui/core/AppBar";
-import {Grid, Hidden, InputBase} from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
-import {fade, createStyles, Theme, makeStyles} from '@material-ui/core/styles';
-import {Link} from 'react-router-dom'
-// import ListItem from "@material-ui/core/ListItem";
-// import ListItemIcon from "@material-ui/core/ListItemIcon";
-// import ListItemText from "@material-ui/core/ListItemText";
+
 
 const drawerWidth = 220;
 
@@ -93,6 +89,8 @@ const chooseIcon = (i: number) => {
 }
 const Header = () => {
     const classes = useStyles()
+    const searchTerm = useAppSelector(state => state.data.searchTerm)
+    const dispatch = useAppDispatch()
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const menuId = 'primary-search-account-menu';
 
@@ -103,9 +101,6 @@ const Header = () => {
     return (
         <AppBar className={classes.appBar}>
             <Toolbar>
-                {/*<Typography variant="h6" noWrap>*/}
-                {/*    Permanent drawer*/}
-                {/*</Typography>*/}
                 <Hidden xsDown>
                     <Grid container justify="space-between" alignItems="center">
                         <Grid item>
@@ -114,6 +109,8 @@ const Header = () => {
                                     <SearchIcon/>
                                 </div>
                                 <InputBase
+                                    value={searchTerm}
+                                    onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                                     placeholder="Search…"
                                     classes={{
                                         root: classes.inputRoot,

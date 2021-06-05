@@ -8,6 +8,7 @@ interface CounterState {
     playing: boolean;
     item: null | string;
     token: null | string;
+    searchTerm: null | string;
 }
 
 // Define the initial state using that type
@@ -16,7 +17,8 @@ const initialState: CounterState = {
     playlists: [],
     playing: false,
     item: null,
-    token: null
+    token: null,
+    searchTerm: null
 }
 
 export const counterSlice = createSlice({
@@ -42,11 +44,14 @@ export const counterSlice = createSlice({
         },
         setPlaylists: (state, action: PayloadAction<any>) => {
             state.playlists = action.payload
+        },
+        setSearchTerm: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload
         }
     },
 })
 
-export const {setUser, setToken, setPlaylists} = counterSlice.actions
+export const {setUser, setToken, setPlaylists, setSearchTerm} = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value

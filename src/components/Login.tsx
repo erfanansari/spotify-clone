@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         position: 'absolute',
         minHeight: '100%',
         marginTop: '-0',
+        left: '-0',
+        top: '-0',
         zIndex: 10000,
     },
     loginBtn: {
