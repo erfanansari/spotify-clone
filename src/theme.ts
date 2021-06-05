@@ -42,21 +42,22 @@ export default createMuiTheme({
         },
         h6: {
             fontSize: '.9rem',
+            color:'#999',
             fontWeight: 500,
         },
-        subtitle1: {
-            fontSize: "1.25rem",
-            fontWeight: 300,
-            color: Gray
-        },
-        subtitle2: {
-            color: "white",
-            fontWeight: 300,
-            fontSize: "1.25rem"
-        },
+        // subtitle1: {
+        //     fontSize: "1.25rem",
+        //     fontWeight: 300,
+        //     color: Gray
+        // },
+        // subtitle2: {
+        //     color: "white",
+        //     fontWeight: 300,
+        //     fontSize: "1.25rem"
+        // },
         body1: {
             fontSize: '1.1rem',
-            color: Gray,
+            color: '#fff',
             fontWeight: 300
         },
         caption: {

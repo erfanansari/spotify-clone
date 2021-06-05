@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         drawerPaper: {
             width: drawerWidth,
+            backgroundColor: '#000'
         },
         // necessary for content to be below app bar
         toolbar: {...theme.mixins.toolbar, padding: '.4rem 0 1.1rem 0'},
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
             textDecoration: 'none'
         },
         subMenu: {
-            color: "#666",
             marginLeft: '1.5rem'
         }
     }),

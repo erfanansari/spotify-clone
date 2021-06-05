@@ -5,8 +5,11 @@ import {accessUrl} from "../spotify";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     container: {
-        marginTop: '4rem',
         backgroundColor: '#000',
+        position: 'absolute',
+        minHeight: '100%',
+        marginTop: '-0',
+        zIndex: 10000,
     },
     loginBtn: {
         textDecoration: 'none',
@@ -19,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Login = () => {
     const classes = useStyles()
     return (
-        <Grid container justify="center" className={classes.container} spacing={5}
+        <Grid container justify="center" className={classes.container}
               direction="column" alignItems="center">
             <Grid item>
                 <img style={{maxWidth: '100%'}}

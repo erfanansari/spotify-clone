@@ -5,7 +5,7 @@ const drawerWidth = 220;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     footer: {
-        backgroundColor: '#333',
+        backgroundColor: 'red',
         width: '100%',
         height: '4rem',
         position: 'absolute',
@@ -29,7 +29,7 @@ function Footer() {
     const classes = useStyles()
     return (
         <div className={classes.footer}>
-            <button onClick={() => alert(2423)} style={{color: '#fff'}}>click on me</button>
+            hello
         </div>
     );
 }
