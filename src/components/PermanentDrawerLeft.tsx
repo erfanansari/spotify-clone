@@ -3,17 +3,16 @@ import {Link} from 'react-router-dom'
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import HomeRounded from "@material-ui/icons/HomeRounded";
-import ExploreRounded from "@material-ui/icons/ExploreRounded";
+import Search from "@material-ui/icons/Search";
 import LibraryMusicRounded from "@material-ui/icons/LibraryMusicRounded";
 import PeopleIcon from '@material-ui/icons/People';
 import AlbumRounded from "@material-ui/icons/AlbumRounded";
-import FavoriteRounded from "@material-ui/icons/FavoriteRounded";
-import QueryBuilderRounded from "@material-ui/icons/QueryBuilderRounded";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
+import {useAppSelector, useAppDispatch} from "../redux/hooks";
 
 const drawerWidth = 220
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,12 +39,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 const PermanentDrawerLeft = () => {
+    const playlists = useAppSelector(state => state.data.playlists)
+    console.log(playlists)
+    const playlistsNames = playlists.items && playlists.items.map((el: any) => el.name)
+    console.log(playlistsNames)
+
     const classes = useStyles();
     const chooseIcon = (i: number) => {
         if (i === 0)
             return <HomeRounded/>;
         if (i === 1)
-            return <ExploreRounded/>
+            return <Search/>
         if (i === 2)
             return <LibraryMusicRounded/>
         if (i === 3)
@@ -63,15 +67,22 @@ const PermanentDrawerLeft = () => {
             anchor="left"
         >
             <div className={classes.toolbar}>
-                <Typography variant="h2" component={Link} to="/" className={classes.brandHeader}>
-                    Tunify
-                </Typography>
+                {/*<Typography variant="h2" component={Link} to="/" className={classes.brandHeader}>*/}
+                {/*    Tunify*/}
+                {/*</Typography>*/}
+                <Link to="/">
+                    <img
+                        style={{height: '70px'}}
+                        src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
+                        alt=""
+                    />
+                </Link>
             </div>
             <Typography variant="h6" className={classes.subMenu}>
                 BROWSE
             </Typography>
             <List>
-                {['Home', 'Explore', 'Songs', 'Artists', 'Albums'].map((text, index) => (
+                {['Home', 'Search', 'Library'].map((text, index) => (
                     <ListItem button key={text} component={Link} to={text.toLowerCase()}>
                         <ListItemIcon>
                             {chooseIcon(index)}
@@ -82,15 +93,12 @@ const PermanentDrawerLeft = () => {
             </List>
 
             <Typography variant="h6" className={classes.subMenu}>
-                YOUR LIBRARY
+                Playlists
             </Typography>
             <List>
-                {['Recently Played', 'Favourites', 'Playlists'].map((text, index) => (
-                    <ListItem button key={text} component={Link} to={text.toLowerCase()}>
-                        <ListItemIcon>
-                            {index === 0 ? <QueryBuilderRounded/> : index === 1 ?
-                                <FavoriteRounded/> : <LibraryMusicRounded/>}
-                        </ListItemIcon>
+                {playlistsNames && playlistsNames.map((text: string) => (
+                    <ListItem style={{paddingLeft: '55px'}} button key={text} component={Link}
+                              to={text.toLowerCase()}>
                         <ListItemText primary={text}/>
                     </ListItem>
                 ))}

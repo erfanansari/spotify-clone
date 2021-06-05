@@ -6,8 +6,11 @@ import PermanentDrawerLeft from "./PermanentDrawerLeft";
 import {Hidden} from "@material-ui/core";
 import Player from "./Player";
 import Login from "./Login";
+import Footer from "./Footer";
 import {getTokenFromResponse} from "../spotify";
 import SpotifyWebApi from "spotify-web-api-js";
+import {useAppSelector, useAppDispatch} from "../redux/hooks";
+import {setUser, setToken, setPlaylists} from "../redux/counterSlice";
 
 const drawerWidth = 220;
 
@@ -34,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             // backgroundColor: theme.palette.common.black,
             backgroundColor: theme.palette.common.white,
-            padding: '20px',
+            // padding: '20px',
             height: '100vh',
             // padding: theme.spacing(3),
         },
@@ -42,30 +45,41 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const spotify = new SpotifyWebApi();
+const spotifyApi = new SpotifyWebApi();
 
 interface Props {
     children: ReactNode;
 }
 
-const Menu = (props: Props) => {
+const Menu = ({children}: Props) => {
+    // const [playlists, setPlaylists] = useState<any>([])
+    const token = useAppSelector(state => state.data.token)
+    const playlists = useAppSelector(state => state.data.playlists)
+    const tokenStorage = localStorage.getItem('token')
+    const dispatch = useAppDispatch()
     const classes = useStyles();
-    const [token, setToken] = useState<string | null>(null)
     useEffect(() => {
-        const {access_token} = getTokenFromResponse()
-        console.log(getTokenFromResponse(), 'gettoken')
-        console.log(access_token)
-        window.location.hash = '';
-        if (access_token) {
-            setToken(access_token)
-            spotify.setAccessToken(access_token)
-            spotify.getMe().then(user => {
-                console.log(user, 'user')
-            })
-        }
-        console.log(token, 'token')
-        console.log(access_token, '_token')
-    }, [token])
+            const {access_token} = getTokenFromResponse()
+            window.location.hash = '';
+            console.log(localStorage.getItem('token'))
+            if (access_token) {
+                localStorage.setItem('token', JSON.stringify(access_token))
+                dispatch(setToken(access_token))
+                spotifyApi.setAccessToken(access_token)
+            } else if (tokenStorage) {
+                dispatch(setToken(tokenStorage))
+                spotifyApi.setAccessToken(JSON.parse(tokenStorage))
+
+                spotifyApi.getMe().then(user => {
+                    dispatch(setUser(user))
+                    spotifyApi.getUserPlaylists(user.id).then(playlists => {
+                        dispatch(setPlaylists(playlists))
+                    })
+                })
+            }
+
+        }, [token, dispatch]
+    )
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -73,11 +87,13 @@ const Menu = (props: Props) => {
             <Hidden xsDown>
                 <PermanentDrawerLeft/>
             </Hidden>
+
             <main className={classes.content}>
                 <Hidden xsDown>
                     <div className={classes.toolbar}/>
                 </Hidden>
-                {token ? <Player/> : <Login/>}
+                {token ? <Player playlists={playlists} spotify={spotifyApi}/> : <Login/>}
+                <Footer/>
             </main>
 
         </div>
