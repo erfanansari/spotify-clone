@@ -8,7 +8,7 @@ interface CounterState {
     playing: boolean;
     item: null | string;
     token: null | string;
-    searchTerm: null | string;
+    searchTerm: string;
 }
 
 // Define the initial state using that type
@@ -18,7 +18,7 @@ const initialState: CounterState = {
     playing: false,
     item: null,
     token: null,
-    searchTerm: null
+    searchTerm: ''
 }
 
 export const counterSlice = createSlice({
