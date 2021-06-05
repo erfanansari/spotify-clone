@@ -4,8 +4,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from "./Header";
 import PermanentDrawerLeft from "./PermanentDrawerLeft";
 import {Hidden} from "@material-ui/core";
-import Player from "./Player";
+// import Player from "./Player";
 import Login from "./Login";
+import Footer from "./Footer";
 // import Footer from "./Footer";
 import {getTokenFromResponse} from "../spotify";
 import SpotifyWebApi from "spotify-web-api-js";
@@ -92,8 +93,8 @@ const Menu = ({children}: Props) => {
                 <Hidden xsDown>
                     <div className={classes.toolbar}/>
                 </Hidden>
-                {token ? <Player playlists={playlists} spotify={spotifyApi}/> : <Login/>}
-                {/*<Footer/>*/}
+                {token ? children : <Login/>}
+                <Footer/>
             </main>
 
         </div>

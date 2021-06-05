@@ -18,12 +18,12 @@ const App = () => {
                 <Route path="/" render={props => (
                     <Menu {...props}>
                         <Route path="/home" exact component={() => <div>home</div>}/>
-                        <Route path="/explore" exact component={Explore}/>
-                        <Route path="/songs" exact component={() => <div>songs</div>}/>
-                        <Route path="/albums" exact component={() => <div>albums</div>}/>
-                        <Route path="/favourites" exact component={() => <div>favourites</div>}/>
-                        <Route path="/artists" exact component={() => <div>artists</div>}/>
-                        <Route path="/playlists" exact component={() => <div>playlists</div>}/>
+                        <Route path="/search" exact component={Explore}/>
+                        <Route path="/library" exact component={() => <div>library</div>}/>
+                        {/*<Route path="/albums" exact component={() => <div>albums</div>}/>*/}
+                        {/*<Route path="/favourites" exact component={() => <div>favourites</div>}/>*/}
+                        {/*<Route path="/artists" exact component={() => <div>artists</div>}/>*/}
+                        {/*<Route path="/playlists" exact component={() => <div>playlists</div>}/>*/}
                     </Menu>
                 )}/>
                 {/*<Switch>*/}

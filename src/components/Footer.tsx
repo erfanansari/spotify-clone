@@ -5,9 +5,10 @@ const drawerWidth = 220;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     footer: {
-        backgroundColor: 'red',
+        backgroundColor: '#000',
+        borderTop:'1px solid #444',
         width: '100%',
-        height: '4rem',
+        height: '4.7rem',
         position: 'absolute',
         bottom: '56px',
         [theme.breakpoints.up('sm')]: {

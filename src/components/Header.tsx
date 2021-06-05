@@ -35,17 +35,16 @@ const useStyles = makeStyles((theme: Theme) =>
             right: 0,
             position: 'fixed',
             marginLeft: drawerWidth,
+            backgroundColor: '#000'
         },
         search: {
             position: 'relative',
-            borderRadius: theme.shape.borderRadius,
-            backgroundColor: fade(theme.palette.common.white, 0.15),
-            '&:hover': {
-                backgroundColor: fade(theme.palette.common.white, 0.25),
-            },
-            marginRight: theme.spacing(2),
+            borderRadius: '100px',
+            backgroundColor: '#fff',
+            marginRight: theme.spacing(6),
+            color: '#000',
             marginLeft: 0,
-            width: '100%',
+            width: '20rem',
             [theme.breakpoints.up('sm')]: {
                 marginLeft: theme.spacing(3),
                 width: 'auto',
