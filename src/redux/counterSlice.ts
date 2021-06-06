@@ -7,7 +7,7 @@ interface CounterState {
     playlists: any;
     playing: boolean;
     item: null | string;
-    token: null | string;
+    token: string;
     searchTerm: string;
 }
 
@@ -17,7 +17,7 @@ const initialState: CounterState = {
     playlists: [],
     playing: false,
     item: null,
-    token: null,
+    token: '',
     searchTerm: ''
 }
 

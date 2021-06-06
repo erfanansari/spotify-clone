@@ -2,13 +2,20 @@ import React, {useState, useEffect} from 'react';
 import TrackSearchResult from "./TrackSearchResult";
 import {useAppSelector} from "../redux/hooks";
 import SpotifyWebApi from "spotify-web-api-js";
+import Footer from "./Footer";
 // import axios from "axios";
 
 const spotifyApi = new SpotifyWebApi()
 const Explore = () => {
         const [searchResults, setSearchResults] = useState<any>([])
+        const [playingTrack, setPlayingTrack] = useState<any>([])
         console.log(searchResults)
         const searchTerm = useAppSelector(state => state.data.searchTerm)
+        const token = useAppSelector(state => state.data.token)
+        const chooseTrack = (track: any) => {
+            setPlayingTrack(track)
+        }
+
         useEffect(() => {
             if (!searchTerm) return
             let cancel = false
@@ -38,8 +45,9 @@ const Explore = () => {
         return (
             <div>
                 {searchResults.map((track: any) => (
-                    <TrackSearchResult track={track} key={track.url}/>
+                    <TrackSearchResult track={track} key={track.url} chooseTrack={chooseTrack}/>
                 ))}
+                <Footer token={token} trackUri={playingTrack?.uri}/>
             </div>
         );
     }

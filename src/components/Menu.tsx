@@ -47,8 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             '&::-webkit-scrollbar-track': {
                 boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                marginTop: '64px',
-                marginBottom: '4.7rem'
+                marginBottom: 'calc(4.7rem + 56px)',
+                [theme.breakpoints.up('sm')]: {
+                    marginBottom: '4.7rem',
+                    marginTop: '64px',
+                }
             },
             '&::-webkit-scrollbar-thumb': {
                 backgroundColor: '#666',
@@ -70,6 +73,8 @@ const Menu = ({children}: Props) => {
     const playlists = useAppSelector(state => state.data.playlists)
     const tokenStorage = localStorage.getItem('token')
     const dispatch = useAppDispatch()
+
+
     const classes = useStyles();
     useEffect(() => {
             const {access_token} = getTokenFromResponse()
@@ -106,7 +111,7 @@ const Menu = ({children}: Props) => {
                     <div className={classes.toolbar}/>
                 </Hidden>
                 {token ? children : <Login/>}
-                <Footer/>
+                {/*<Footer trackUri={}/>*/}
             </main>
 
         </div>

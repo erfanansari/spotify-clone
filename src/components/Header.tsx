@@ -1,12 +1,11 @@
 import React from "react";
 import {useAppSelector, useAppDispatch} from "../redux/hooks";
 import {setSearchTerm} from "../redux/counterSlice";
-import {Grid, Hidden, InputBase, AppBar} from "@material-ui/core";
+import {Grid, Hidden, InputBase, AppBar, Avatar, Typography} from "@material-ui/core";
 import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 
 import Toolbar from "@material-ui/core/Toolbar";
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeRounded from "@material-ui/icons/HomeRounded";
 import LibraryMusicRounded from "@material-ui/icons/LibraryMusicRounded";
 import SearchIcon from "@material-ui/icons/Search";
@@ -90,10 +89,12 @@ const chooseIcon = (i: number) => {
 const Header = () => {
     const classes = useStyles()
     const searchTerm = useAppSelector(state => state.data.searchTerm)
+    const user = useAppSelector(state => state.data.user)
     const dispatch = useAppDispatch()
+    const location = useLocation()
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const menuId = 'primary-search-account-menu';
-
+    // const menuId = 'primary-search-account-menu';
+    console.log(user)
     // const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     //     setAnchorEl(event.currentTarget);
     // };
@@ -108,7 +109,7 @@ const Header = () => {
                                 <div className={classes.searchIcon}>
                                     <SearchIcon/>
                                 </div>
-                                <InputBase
+                                {location.pathname === '/search' ? <InputBase
                                     value={searchTerm}
                                     onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                                     placeholder="Search…"
@@ -117,20 +118,17 @@ const Header = () => {
                                         input: classes.inputInput,
                                     }}
                                     inputProps={{'aria-label': 'search'}}
-                                />
+                                /> : null}
                             </div>
                         </Grid>
                         <Grid item>
-                            <IconButton className={classes.userIcon}
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        aria-controls={menuId}
-                                        aria-haspopup="true"
-                                // onClick={handleProfileMenuOpen}
-                                        color="inherit"
-                            >
-                                <AccountCircle/>
-                            </IconButton>
+                            <Grid container alignItems="center" style={{marginRight: '1rem'}}>
+                                <Avatar src={user && user.images[0].url}
+                                        alt={user && user.display_name}
+                                        style={{marginRight: '.8rem'}}/>
+                                <Typography
+                                    variant="subtitle2">{user && user.display_name}</Typography>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Hidden>
