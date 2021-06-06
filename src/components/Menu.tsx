@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: theme.mixins.toolbar,
         content: {
             flexGrow: 1,
-            // backgroundColor: theme.palette.common.black,
-            backgroundColor: theme.palette.common.white,
+            overflow: 'auto',
+            backgroundColor: theme.palette.common.black,
+            // backgroundColor: theme.palette.common.white,
             // padding: '20px',
             height: '100vh',
             // padding: theme.spacing(3),

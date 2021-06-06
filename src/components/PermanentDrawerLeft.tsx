@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PermanentDrawerLeft = () => {
     const playlists = useAppSelector(state => state.data.playlists)
-    console.log(playlists)
     const playlistsNames = playlists.items && playlists.items.map((el: any) => el.name)
-    console.log(playlistsNames)
 
     const classes = useStyles();
     const chooseIcon = (i: number) => {

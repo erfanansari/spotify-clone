@@ -1,14 +1,20 @@
-import {Grid} from "@material-ui/core"
+import {Avatar, ListItem, Typography, Grid, ListItemAvatar} from "@material-ui/core"
 
 
 const TrackSearchResult = ({track}: any) => {
     return (
-        <Grid container>
-            <img src={track.album} alt={track.name}/>
-            {/*<img src={track.album} style={{height:'64px',width:'64px'}} alt={""}/>*/}
-            <h5>{track.title}</h5>
-            <h5>{track.artist}</h5>
-        </Grid>
+        <ListItem>
+            <ListItemAvatar>
+                <Avatar variant="square" src={track.album} alt={track.title}/>
+            </ListItemAvatar>
+            <Grid container direction="column">
+                <Typography style={{fontSize: '1rem'}}> {track.title}</Typography>
+                <Typography style={{color: '#999', fontSize: '.9rem'}} variant="subtitle1"
+                            gutterBottom>
+                    {track.artist}
+                </Typography>
+            </Grid>
+        </ListItem>
     );
 };
 
