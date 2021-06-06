@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         [theme.breakpoints.up('sm')]: {
             // width: `calc(100% - ${drawerWidth}px)`,
             // bottom: 0
-            zIndex: 2000,
+            zIndex: theme.zIndex.drawer,
             width: '100%',
             marginRight: '220px',
             position: 'absolute',

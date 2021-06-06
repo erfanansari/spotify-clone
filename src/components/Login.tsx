@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         marginTop: '-0',
         left: '-0',
         top: '-0',
-        zIndex: 10000,
+        zIndex: theme.zIndex.drawer + 1,
     },
     loginBtn: {
         textDecoration: 'none',

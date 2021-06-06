@@ -42,6 +42,17 @@ const useStyles = makeStyles((theme: Theme) =>
             // padding: '20px',
             height: '100vh',
             // padding: theme.spacing(3),
+            '&::-webkit-scrollbar': {
+                width: '.7rem',
+            },
+            '&::-webkit-scrollbar-track': {
+                boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                marginTop: '64px',
+                marginBottom: '4.7rem'
+            },
+            '&::-webkit-scrollbar-thumb': {
+                backgroundColor: '#666',
+            }
         },
 
     }),
