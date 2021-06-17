@@ -1,21 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import TrackSearchResult from "./TrackSearchResult";
-import {useAppSelector} from "../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
 import SpotifyWebApi from "spotify-web-api-js";
-import Footer from "./Footer";
+import Player from "./Player";
+import {setSearchTerm, setPlayingTrack} from "../redux/counterSlice";
 // import axios from "axios";
 
 const spotifyApi = new SpotifyWebApi()
 const Explore = () => {
+        const dispatch = useAppDispatch();
         const [searchResults, setSearchResults] = useState<any>([])
-        const [playingTrack, setPlayingTrack] = useState<any>([])
+        // const [playingTrack, setPlayingTrack] = useState<any>('sfdsfds')
         console.log(searchResults)
         const searchTerm = useAppSelector(state => state.data.searchTerm)
         const token = useAppSelector(state => state.data.token)
+        const playingTrack = useAppSelector(state => state.data.playingTrack)
         const chooseTrack = (track: any) => {
-            setPlayingTrack(track)
+            dispatch(setPlayingTrack(track))
+            dispatch(setSearchTerm(''));
         }
-
         useEffect(() => {
             if (!searchTerm) return
             let cancel = false
@@ -32,6 +35,7 @@ const Explore = () => {
                         return {
                             artist: track.artists[0].name,
                             title: track.name,
+                            uri: track.uri,
                             album: smallestAlbumImage.url
                         }
                     }))
@@ -42,12 +46,14 @@ const Explore = () => {
                 clearTimeout(timer)
             }
         }, [searchTerm])
+        searchResults.map((track: any) => console.log(track))
+
         return (
             <div>
                 {searchResults.map((track: any) => (
-                    <TrackSearchResult track={track} key={track.url} chooseTrack={chooseTrack}/>
+                    <TrackSearchResult track={track} key={track.uri} chooseTrack={chooseTrack}/>
                 ))}
-                <Footer token={token} trackUri={playingTrack?.uri}/>
+                <Player token={JSON.parse(token)} trackUri={playingTrack?.uri}/>
             </div>
         );
     }

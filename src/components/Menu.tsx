@@ -6,8 +6,8 @@ import PermanentDrawerLeft from "./PermanentDrawerLeft";
 import {Hidden} from "@material-ui/core";
 // import Player from "./Player";
 import Login from "./Login";
-import Footer from "./Footer";
-// import Footer from "./Footer";
+import Player from "./Player";
+// import Player from "./Player";
 import {getTokenFromResponse} from "../spotify";
 import SpotifyWebApi from "spotify-web-api-js";
 import {useAppSelector, useAppDispatch} from "../redux/hooks";
@@ -111,7 +111,7 @@ const Menu = ({children}: Props) => {
                     <div className={classes.toolbar}/>
                 </Hidden>
                 {token ? children : <Login/>}
-                {/*<Footer trackUri={}/>*/}
+                {/*<Player trackUri={}/>*/}
             </main>
 
         </div>

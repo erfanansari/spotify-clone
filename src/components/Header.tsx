@@ -94,7 +94,7 @@ const Header = () => {
     const location = useLocation()
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     // const menuId = 'primary-search-account-menu';
-    console.log(user)
+    // console.log(user)
     // const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     //     setAnchorEl(event.currentTarget);
     // };

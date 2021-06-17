@@ -40,7 +40,7 @@ const App = () => {
                 {/*    />*/}
 
                 {/*</Switch>*/}
-                {/*<Footer setValue={setValue} setSelectedIndex={setSelectedIndex} />*/}
+                {/*<Player setValue={setValue} setSelectedIndex={setSelectedIndex} />*/}
             </BrowserRouter>
         </ThemeProvider>
     );

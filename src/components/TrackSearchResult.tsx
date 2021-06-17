@@ -1,11 +1,10 @@
 import {useState} from "react";
-import Footer from "./Footer";
+import Player from "./Player";
 import {Avatar, ListItem, Typography, Grid, ListItemAvatar} from "@material-ui/core"
 
 
 const TrackSearchResult = ({track, chooseTrack}: any) => {
-
-    const handleClick = () => {
+    const handlePlay = () => {
         chooseTrack(track)
     }
 
@@ -14,7 +13,7 @@ const TrackSearchResult = ({track, chooseTrack}: any) => {
             <Grid container style={{maxHeight: '100%'}}>
                 <ListItem>
                     <ListItemAvatar>
-                        <Avatar onClick={handleClick} style={{cursor: 'pointer'}} variant="square"
+                        <Avatar onClick={handlePlay} style={{cursor: 'pointer'}} variant="square"
                                 src={track.album}
                                 alt={track.title}/>
                     </ListItemAvatar>
