@@ -12,9 +12,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
-import {useAppSelector, useAppDispatch} from "../redux/hooks";
+import {useAppSelector} from "../redux/hooks";
+import {drawerWidth} from "../theme";
 
-const drawerWidth = 220
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawer: {

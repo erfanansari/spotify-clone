@@ -2,14 +2,12 @@ import React, {useEffect, useState} from 'react';
 import SpotifyPlayer from 'react-spotify-web-playback'
 import {createStyles, Theme, makeStyles} from "@material-ui/core";
 
-const drawerWidth = 220;
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
     footer: {
         backgroundColor: 'red',
         borderTop: '1px solid #444',
         width: '100%',
-        height: '4.7rem',
+        // height: '4.7rem',
         position: 'absolute',
         bottom: '56px',
         [theme.breakpoints.up('sm')]: {
@@ -22,8 +20,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
             left: '-0',
             bottom: 0,
         }
-
-
     }
 }))
 
@@ -37,7 +33,18 @@ function Player({trackUri, token}: any) {
             <SpotifyPlayer token={token} callback={state => {
                 if (!state.isPlaying) setPlay(false)
             }
-            } play={play} showSaveIcon uris={trackUri ? [trackUri] : []}/>
+            } play={play} showSaveIcon uris={trackUri ? [trackUri] : []}
+                           styles={{
+                               activeColor: '#fff',
+                               bgColor: '#000',
+                               color: '#fff',
+                               loaderColor: '#fff',
+                               sliderColor: '#1cb954',
+                               trackArtistColor: '#ccc',
+                               trackNameColor: '#fff',
+                           }}
+                           initialVolume={.35}
+            />
         </div>
     );
 }

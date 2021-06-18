@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid} from "@material-ui/core";
 import {createStyles, Theme, makeStyles} from "@material-ui/core";
-import {accessUrl} from "../spotify";
+import {accessUrl} from "../config.spotify";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     container: {

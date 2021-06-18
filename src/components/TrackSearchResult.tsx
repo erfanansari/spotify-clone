@@ -1,5 +1,3 @@
-import {useState} from "react";
-import Player from "./Player";
 import {Avatar, ListItem, Typography, Grid, ListItemAvatar} from "@material-ui/core"
 
 

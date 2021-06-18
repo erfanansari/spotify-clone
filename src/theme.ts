@@ -1,12 +1,13 @@
 import {createMuiTheme} from "@material-ui/core/styles";
-
+export const drawerWidth = 220;
 const Blue = "#0B72B9";
 const Orange = "#FFBA60";
 const Gray = "#868686";
-const Black= "#000";
+// const Black= "#000";
 // const White= "#fff";
 // const darkGray = "#555";
 const fontFamily = 'Apercu'
+// @ts-ignore
 export default createMuiTheme({
     palette: {
         primary: {
@@ -46,14 +47,14 @@ export default createMuiTheme({
             fontWeight: 500,
         },
         // subtitle1: {
-        //     fontSize: "1.25rem",
-        //     fontWeight: 300,
-        //     color: Gray
+        //     fontsize: "1.25rem",
+        //     fontweight: 300,
+        //     color: gray
         // },
         // subtitle2: {
         //     color: "white",
-        //     fontWeight: 300,
-        //     fontSize: "1.25rem"
+        //     fontweight: 300,
+        //     fontsize: "1.25rem"
         // },
         body1: {
             fontSize: '1.1rem',
@@ -67,26 +68,6 @@ export default createMuiTheme({
         },
     },
     overrides: {
-        // MuiInputLabel: {
-        //     root: {
-        //         color: Blue,
-        //         fontSize: "1rem"
-        //     }
-        // },
-        // MuiInput: {
-        //     root: {
-        //         color: Gray,
-        //         fontWeight: 300
-        //     },
-        //     underline: {
-        //         "&:before": {
-        //             borderBottom: `2px solid ${Blue}`
-        //         },
-        //         "&:hover:not($disabled):not($focused):not($error):before": {
-        //             borderBottom: `2px solid ${Blue}`
-        //         }
-        //     }
-        // },
         MuiListItemIcon: {
             root: {
                 minWidth: '40px'
@@ -94,8 +75,5 @@ export default createMuiTheme({
         }
     },
     props: {
-        // MuiButton: {
-        // disableRipple: true
-        // }
     }
 });
