@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import TrackSearchResult from "./TrackSearchResult";
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
 import SpotifyWebApi from "spotify-web-api-js";
-import {setSearchTerm, setPlayingTrack} from "../redux/counterSlice";
+import {setPlayingTrack} from "../redux/counterSlice";
 
 const spotifyApi = new SpotifyWebApi()
 const Explore = () => {
@@ -11,7 +11,6 @@ const Explore = () => {
         const searchTerm = useAppSelector(state => state.data.searchTerm)
         const chooseTrack = (track: any) => {
             dispatch(setPlayingTrack(track))
-            dispatch(setSearchTerm(''));
         }
         useEffect(() => {
             if (!searchTerm) return

@@ -1,6 +1,5 @@
 import {Avatar, ListItem, Typography, Grid, ListItemAvatar} from "@material-ui/core"
 
-
 const TrackSearchResult = ({track, chooseTrack}: any) => {
     const handlePlay = () => {
         chooseTrack(track)
@@ -11,9 +10,12 @@ const TrackSearchResult = ({track, chooseTrack}: any) => {
             <Grid container style={{maxHeight: '100%'}}>
                 <ListItem>
                     <ListItemAvatar>
-                        <Avatar onClick={handlePlay} style={{cursor: 'pointer'}} variant="square"
-                                src={track.album}
-                                alt={track.title}/>
+                        <>
+                            <Avatar onClick={handlePlay} style={{cursor: 'pointer'}}
+                                    variant="square"
+                                    src={track.album}
+                                    alt={track.title}/>
+                        </>
                     </ListItemAvatar>
                     <Grid container direction="column">
                         <Typography style={{fontSize: '1rem'}}> {track.title}</Typography>

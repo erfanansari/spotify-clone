@@ -1,7 +1,7 @@
 import {createMuiTheme} from "@material-ui/core/styles";
 export const drawerWidth = 220;
 const Blue = "#0B72B9";
-const Orange = "#FFBA60";
+const Green= "rgb(30, 215, 96)";
 const Gray = "#868686";
 // const Black= "#000";
 // const White= "#fff";
@@ -14,7 +14,7 @@ export default createMuiTheme({
             main: Blue
         },
         secondary: {
-            main: Orange
+            main: Green
         }
     },
     typography: {

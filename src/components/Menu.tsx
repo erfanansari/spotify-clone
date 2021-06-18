@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 justifyContent: 'space-between',
                 height: '4.7rem',
                 [theme.breakpoints.down('sm')]: {
-                    height: '6.25rem'
+                    height: '7rem'
                 }
             },
             '.__1xc0f9k': {
