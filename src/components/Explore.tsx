@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import TrackSearchResult from "./TrackSearchResult";
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
 import SpotifyWebApi from "spotify-web-api-js";
-import {setPlayingTrack} from "../redux/counterSlice";
+import {setPlayingTrack} from "../redux/Slicers";
 
 const spotifyApi = new SpotifyWebApi()
+
 const Explore = () => {
         const dispatch = useAppDispatch();
         const [searchResults, setSearchResults] = useState<any>([])
@@ -47,6 +48,5 @@ const Explore = () => {
             </div>
         );
     }
-;
 
 export default Explore;

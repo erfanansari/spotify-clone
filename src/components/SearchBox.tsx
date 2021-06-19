@@ -1,7 +1,7 @@
 import React from 'react';
 import {InputBase} from "@material-ui/core";
 import {useAppSelector, useAppDispatch} from "../redux/hooks";
-import {setSearchTerm} from "../redux/counterSlice";
+import {setSearchTerm} from "../redux/Slicers";
 import {createStyles, Theme, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

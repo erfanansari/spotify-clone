@@ -3,14 +3,15 @@ import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from "./Header";
 import PermanentDrawerLeft from "./PermanentDrawerLeft";
-import {Hidden} from "@material-ui/core";
 import Login from "./Login";
-import {getTokenFromResponse} from "../config.spotify";
-import SpotifyWebApi from "spotify-web-api-js";
-import {useAppSelector, useAppDispatch} from "../redux/hooks";
-import {setUser, setToken, setPlaylists} from "../redux/counterSlice";
-import {drawerWidth} from "../theme";
 import Player from "./Player";
+import {Hidden} from "@material-ui/core";
+import {getTokenFromResponse} from "../config.spotify";
+import {useAppSelector, useAppDispatch} from "../redux/hooks";
+import {setUser, setToken, setPlaylists} from "../redux/Slicers";
+import {drawerWidth} from "../theme";
+import Cookies from 'js-cookie'
+import SpotifyWebApi from "spotify-web-api-js";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.down('xs')]: {
                 marginTop: '55px',
                 zIndex: theme.zIndex.drawer,
-                height: 'calc(100vh - 13rem)'
+                height: 'calc(100vh - 13.5rem)'
             },
             // padding: theme.spacing(3),
             '&::-webkit-scrollbar': {
@@ -88,21 +89,31 @@ interface Props {
 const Menu = ({children}: Props) => {
     const token = useAppSelector(state => state.data.token)
     const playingTrack = useAppSelector(state => state.data.playingTrack)
-    const tokenStorage = localStorage.getItem('token')
+    const cookieToken = Cookies.get('token')
     const dispatch = useAppDispatch()
+
 
     const classes = useStyles();
 
     useEffect(() => {
-            const {access_token} = getTokenFromResponse()
+
+            const {access_token, expires_in} = getTokenFromResponse();
             window.location.hash = '';
+            const expires = parseInt(expires_in) / 60;
             if (access_token) {
-                localStorage.setItem('token', access_token)
-                dispatch(setToken(access_token))
-                spotifyApi.setAccessToken(access_token)
-            } else if (tokenStorage) {
-                dispatch(setToken(tokenStorage))
-                spotifyApi.setAccessToken(tokenStorage)
+                const setTokenInCookie = () => {
+                    Cookies.set('token', access_token, {
+                        expires
+                    })
+                    setTimeout(() => {
+                        dispatch(setToken(null))
+                    }, expires)
+                }
+                setTokenInCookie()
+            }
+            if (cookieToken) {
+                dispatch(setToken(cookieToken))
+                spotifyApi.setAccessToken(cookieToken)
 
                 spotifyApi.getMe().then(user => {
                     dispatch(setUser(user))
@@ -112,7 +123,7 @@ const Menu = ({children}: Props) => {
                 })
             }
 
-        }, [tokenStorage, token, dispatch]
+        }, [cookieToken, token, dispatch]
     )
     return (
         <div className={classes.root}>

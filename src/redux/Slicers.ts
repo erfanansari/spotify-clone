@@ -23,7 +23,7 @@ const initialState: CounterState = {
     playingTrack: []
 }
 
-export const counterSlice = createSlice({
+export const Slicers = createSlice({
     name: 'data',
     // `createSlice` will infer the state type from the `initialState` argument
     initialState,
@@ -62,10 +62,10 @@ export const {
     setPlaylists,
     setSearchTerm,
     setPlayingTrack
-} = counterSlice.actions
+} = Slicers.actions
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value
 // export const selectCount = (state: RootState) => state.data.user
 
-export default counterSlice.reducer
+export default Slicers.reducer
