@@ -4,6 +4,7 @@ import theme from "../theme";
 import {BrowserRouter, Route} from "react-router-dom";
 import Menu from './Menu'
 import Explore from "./Explore";
+import Profile from './Profile'
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                         <Route path="/home" exact component={() => <div>home</div>}/>
                         <Route path="/search" exact component={Explore}/>
                         <Route path="/library" exact component={() => <div>library</div>}/>
+                        <Route path="/profile" exact component={Profile}/>
                         {/*<Route path="/albums" exact component={() => <div>albums</div>}/>*/}
                         {/*<Route path="/favourites" exact component={() => <div>favourites</div>}/>*/}
                         {/*<Route path="/artists" exact component={() => <div>artists</div>}/>*/}

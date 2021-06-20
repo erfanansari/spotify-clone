@@ -1,9 +1,16 @@
-import React from "react";
-import {useAppSelector} from "../redux/hooks";
-import {Grid, Hidden, Box, AppBar, Avatar, Typography} from "@material-ui/core";
+import React, {useState, useEffect, useRef} from "react";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {Grid, Hidden, Box, AppBar, Avatar} from "@material-ui/core";
 import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
-import {Link, useLocation} from 'react-router-dom'
+import {Link, useLocation, useHistory} from 'react-router-dom'
 import SearchBox from "./SearchBox";
+import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 import {drawerWidth} from "../theme";
 import Toolbar from "@material-ui/core/Toolbar";
 import HomeRounded from "@material-ui/icons/HomeRounded";
@@ -12,7 +19,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import PeopleIcon from '@material-ui/icons/People';
 import AlbumRounded from "@material-ui/icons/AlbumRounded";
 import IconButton from '@material-ui/core/IconButton';
-
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Cookies from "js-cookie";
+import {setToken} from "../redux/Slicers";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -38,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: '#000',
             // marginLeft: 0,
             width: '20rem',
-            margin:'1rem auto 0',
+            margin: '1rem auto 0',
             [theme.breakpoints.up('sm')]: {
                 marginLeft: theme.spacing(3),
                 width: 'auto',
@@ -64,7 +74,13 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100vh',
             flexDirection: 'column-reverse',
             justifyContent: 'space-between',
-        }
+        },
+        root: {
+            display: 'flex',
+        },
+        paper: {
+            marginRight: theme.spacing(2),
+        },
     }))
 
 const chooseIcon = (i: number) => {
@@ -82,6 +98,8 @@ const chooseIcon = (i: number) => {
 const Header = () => {
     const classes = useStyles()
     const user = useAppSelector(state => state.data.user)
+    const dispatch = useAppDispatch()
+    const history = useHistory()
     const location = useLocation()
     // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     // const menuId = 'primary-search-account-menu';
@@ -89,6 +107,43 @@ const Header = () => {
     // const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     //     setAnchorEl(event.currentTarget);
     // };
+
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef<HTMLButtonElement>(null);
+
+    const handleToggle = () => {
+        setOpen((prevOpen) => !prevOpen);
+    };
+
+    const handleClose = (event: React.MouseEvent<EventTarget>) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    function handleListKeyDown(event: React.KeyboardEvent) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setOpen(false);
+        }
+    }
+
+    // return focus to the button when we transitioned from !open -> open
+    const prevOpen = useRef(open);
+    useEffect(() => {
+        if (prevOpen.current && !open) {
+            anchorRef.current!.focus();
+        }
+
+        prevOpen.current = open;
+    }, [open]);
+
+    const logout = () => {
+        Cookies.remove('token')
+        dispatch(setToken(null))
+    }
 
     return (
         <AppBar className={classes.appBar}>
@@ -104,12 +159,56 @@ const Header = () => {
                             </div>
                         </Grid>
                         <Grid item>
-                            <Grid container alignItems="center" style={{marginRight: '1rem'}}>
+                            <Grid container alignItems="center" style={{marginTop: '1rem'}}>
                                 <Avatar src={user && user.images[0].url}
                                         alt={user && user.display_name}
                                         style={{marginRight: '.8rem'}}/>
-                                <Typography
-                                    variant="subtitle2">{user && user.display_name}</Typography>
+                                <div className={classes.root}>
+                                    <div>
+                                        <Button
+                                            ref={anchorRef}
+                                            style={{color: '#fff', textTransform: 'capitalize'}}
+                                            aria-controls={open ? 'menu-list-grow' : undefined}
+                                            aria-haspopup="true"
+                                            onClick={handleToggle}
+                                        >
+                                            {user && user.display_name}
+                                            {open ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                                        </Button>
+                                        <Popper open={open} anchorEl={anchorRef.current}
+                                                role={undefined} transition
+                                                disablePortal>
+                                            {({TransitionProps, placement}) => (
+                                                <Grow
+                                                    {...TransitionProps}
+                                                    style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}
+                                                >
+                                                    <Paper style={{backgroundColor: '#282828'}}>
+                                                        <ClickAwayListener
+                                                            onClickAway={handleClose}>
+                                                            <MenuList autoFocusItem={open}
+                                                                      id="menu-list-grow"
+                                                                      onKeyDown={handleListKeyDown}>
+                                                                <MenuItem
+                                                                    onClick={(e) => {
+                                                                        handleClose(e)
+                                                                        history.push('/profile')
+                                                                    }}>Profile</MenuItem>
+                                                                <MenuItem onClick={handleClose}>My
+                                                                    account</MenuItem>
+                                                                <MenuItem
+                                                                    onClick={(e) => {
+                                                                        handleClose(e);
+                                                                        logout()
+                                                                    }}>Logout</MenuItem>
+                                                            </MenuList>
+                                                        </ClickAwayListener>
+                                                    </Paper>
+                                                </Grow>
+                                            )}
+                                        </Popper>
+                                    </div>
+                                </div>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -138,6 +237,7 @@ const Header = () => {
                     </Grid>
                 </Hidden>
             </Toolbar>
+
         </AppBar>
     )
 }
